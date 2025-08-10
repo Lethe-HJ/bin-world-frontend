@@ -12,7 +12,8 @@
         "title": "Bin World",
         "width": 1200,
         "height": 800,
-        "url": "http://localhost:5173"
+        "url": "http://localhost:5173",
+        "devtools": true
       }
     ],
     "security": {
@@ -29,5 +30,14 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+  },
+  "plugins": {
+    "fs": {
+      "scope": {
+        "allow": ["**"],
+        "requireLiteralLeadingDot": false,
+        "directories": ["**"]
+      }
+    }
   }
 }

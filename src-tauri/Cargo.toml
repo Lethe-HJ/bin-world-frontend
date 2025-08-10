@@ -20,6 +20,27 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 tauri = { version = "2", features = [] }
 tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+tokio = { version = "1", features = ["time"] }
 
+# 编译优化配置
+[profile.dev]
+# 开发模式下的优化
+opt-level = 1          # 轻度优化，平衡编译速度和运行性能
+debug = true           # 保留调试信息
+incremental = true     # 启用增量编译
+codegen-units = 256    # 增加代码生成单元，加快并行编译
+
+[profile.release]
+# 发布模式的优化
+opt-level = "s"        # 优化二进制大小
+lto = true            # 启用链接时优化
+codegen-units = 1     # 更好的优化
+panic = "abort"       # 减小二进制大小
+strip = true          # 移除调试符号
+
+# 依赖项编译优化
+[profile.dev.package."*"]
+opt-level = 3         # 对依赖项使用最高优化，因为它们不会频繁改变

@@ -22,5 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-resource
+resource/*
+!resource/readme.md
 src-tauri/icons
