@@ -4,10 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "tauri": "tauri"
+    "frontend:dev": "cd frontend && yarn dev",
+    "frontend:build": "cd frontend && yarn build",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "npm run frontend:build && tauri build",
+    "dev": "npm run frontend:dev",
+    "build": "npm run frontend:build"
   },
   "dependencies": {
     "vue": "^3.5.13",

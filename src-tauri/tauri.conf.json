@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "identifier": "com.h5ad-render.app",
   "build": {
-    "beforeDevCommand": "yarn dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "yarn build",
-    "frontendDist": "../dist"
+    "beforeDevCommand": "npm run frontend:dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "npm run frontend:build",
+    "frontendDist": "../frontend/dist"
   },
   "app": {
     "windows": [
