@@ -1,18 +1,63 @@
-# Tauri + Vue + TypeScript
+# Bin World - Tauri Desktop Application
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is a Tauri-based desktop application that provides a desktop shell for web applications.
 
-## Recommended IDE Setup
+## Project Architecture
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+This project follows a modular architecture with the following components:
 
-## Type Support For `.vue` Imports in TS
+- **Desktop Application**: Tauri-based desktop shell (this directory)
+- **Frontend**: Vue.js web application (in `frontend/` directory)
+- **Backend**: Python/Rust web backend (planned)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+## Development Setup
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+### Prerequisites
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+- [Node.js](https://nodejs.org/)
+- [Rust](https://rustup.rs/)
+- [Tauri CLI](https://tauri.app/v1/guides/getting-started/setup/)
+
+### Recommended IDE Setup
+
+- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+
+### Development Workflow
+
+The desktop application loads the frontend from a web URL. You can start both the frontend and desktop application with a single command:
+
+```bash
+# Start both frontend and Tauri desktop application
+yarn dev
+```
+
+This command will:
+1. Start the frontend development server on http://localhost:5173
+2. Wait for the frontend to be ready
+3. Launch the Tauri desktop application
+
+### Alternative Commands
+
+```bash
+# Start only the Tauri desktop application (requires frontend to be running)
+yarn tauri:dev
+
+# Build frontend (optional, for production deployment)
+cd frontend
+yarn build
+
+# Build Tauri application
+yarn tauri:build
+```
+
+## Project Structure
+
+- `src-tauri/`: Tauri backend (Rust)
+- `frontend/`: Vue.js frontend application (runs on http://localhost:5173)
+- `docs/`: Project documentation
+
+## Configuration
+
+The Tauri application is configured to load the frontend from `http://localhost:5173` by default. You can modify this URL in `src-tauri/tauri.conf.json` if needed.
 
 

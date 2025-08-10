@@ -1,20 +1,18 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "h5ad-render",
+  "productName": "bin-world",
   "version": "0.1.0",
-  "identifier": "com.h5ad-render.app",
+  "identifier": "com.bin-world.app",
   "build": {
-    "beforeDevCommand": "npm run frontend:dev",
-    "devUrl": "http://localhost:5173",
-    "beforeBuildCommand": "npm run frontend:build",
-    "frontendDist": "../frontend/dist"
+    "devUrl": "http://localhost:5173"
   },
   "app": {
     "windows": [
       {
-        "title": "h5ad-render",
-        "width": 800,
-        "height": 600
+        "title": "Bin World",
+        "width": 1200,
+        "height": 800,
+        "url": "http://localhost:5173"
       }
     ],
     "security": {
