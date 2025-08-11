@@ -13,6 +13,9 @@ FRONTEND_ROOT="$(dirname "$SCRIPT_DIR")"
 # 获取主项目根目录
 PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
+# 检查是否指定了构建目标
+BUILD_TARGET=${1:-web}  # 默认为 web
+
 start_frontend() {
     # 记录原始工作目录
     ORIGINAL_PWD="$PWD"
@@ -51,9 +54,19 @@ start_frontend() {
         echo -e "${GREEN}✅ 前端依赖已安装${NC}"
     fi
     
+    # 设置环境变量
+    export BUILD_TARGET=$BUILD_TARGET
+    
     # 启动前端
     echo -e "${BLUE}📱 启动前端 (Vue.js)...${NC}"
-    echo -e "${YELLOW}执行命令: ${NC}npx vite"
+    if [ "$BUILD_TARGET" = "desktop" ]; then
+        echo -e "${YELLOW}执行命令: ${NC}npx vite --mode desktop"
+        VITE_COMMAND="npx vite --mode desktop"
+    else
+        echo -e "${YELLOW}执行命令: ${NC}npx vite"
+        VITE_COMMAND="npx vite"
+    fi
+
     # 显示日志路径
     if [[ "$ORIGINAL_PWD" == "$PROJECT_ROOT" ]]; then
         echo -e "${GREEN}前端服务日志输出到: frontend/logs/frontend_$(date +%Y%m%d_%H%M%S).log${NC}"
@@ -61,7 +74,7 @@ start_frontend() {
         echo -e "${GREEN}前端服务日志输出到: logs/frontend_$(date +%Y%m%d_%H%M%S).log${NC}"
     fi
     # 使用 tee 命令同时输出到文件和控制台，并在后台启动 tail 来监控错误
-    npx vite 2>&1 | tee "${LOG_FILE}" | grep --line-buffered -i "error\|exception\|fail\|warn\|ERR_\|ELIFECYCLE" &
+    $VITE_COMMAND 2>&1 | tee "${LOG_FILE}" | grep --line-buffered -i "error\|exception\|fail\|warn\|ERR_\|ELIFECYCLE" &
     # 保存后台进程的 PID
     FRONTEND_PID=$!
     # 设置清理函数
